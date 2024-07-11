@@ -26,3 +26,45 @@ str_to_vec = function(str_vec){
   res = paste(shQuote(str_vec, type = 'csh'), collapse = ',')
   return(res)
 }
+
+
+ordered_freq_tab = function(var){
+  tab = data.frame(table(var))
+  tab = tab[order(tab$Freq, decreasing = T),]
+  
+  return(tab)
+}
+
+
+pretty_percentages = function(ratio){
+  
+  if(!is.numeric(ratio)){
+    print('Input must be numeric')
+  } else {
+    return(round(ratio*100, 2))
+  }
+  
+  
+}
+
+
+# wrapper for the combination lapply and do.call('rbind', object)
+lapply_docall = function(list, fun){
+  
+  res = lapply(list, FUN = fun)
+  
+  res = do.call('rbind', res)
+  
+  return(res)
+  
+}
+
+
+# generates random dataframe for testing stuff
+generate_random_df = function(n_obs){
+  
+  data.frame(y = seq(2001, 2001+(n_obs-1)),
+             a = sample(letters, 10),
+             n = sample(1:10, 10))
+  
+}
